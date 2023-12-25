@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 
 public class Encode {
 
-    //Message length can't be greater than 100
     final int messageLength = 100;
 
     public void hideText(BufferedImage img, String text) {
@@ -30,7 +29,7 @@ public class Encode {
         if(text.length()<=messageLength) {
             for(int i=startingPoints[1]; index<text.length() && i<img.getHeight(); i++) {
                 for(int j=startingPoints[0]; index<text.length() && j<img.getWidth(); j++) {
-                    //img.setRGB(j, i, newColor(img.getRGB(j, i)& 0xff0000 >> 16, img.getRGB(j, i)& 0xff00 >> 8, img.getRGB(j,i)& 0xff, map.get(text.substring(index,index+1))).getRGB());
+
                     img.setRGB(j, i, newColor(img.getRGB(j, i), map.get(text.substring(index, index+1))).getRGB());
                     index++;
 
@@ -49,15 +48,11 @@ public class Encode {
         } catch (IOException e) {System.out.println("An error occured!" + e.getMessage());}
     }
 
-    //Checking the image for a suitable starting point and if not creating it
     private int[] Detection(BufferedImage img) {
 
         for(int i=0; i<img.getHeight()-1; i++) {
             for(int j=0; j<img.getWidth(); j++) {
-                //int color = img.getRGB(j,i);
-                //int red = color & 0xff0000 >> 16;
-                //int green = color & 0xff00 >> 8;
-                //int blue = color & 0xff;
+
 
                 int red = new Color(img.getRGB(j,i), true).getRed() & 0b11;
                 int green = new Color(img.getRGB(j, i), true).getGreen() & 0b11;
@@ -75,7 +70,6 @@ public class Encode {
         return new int[] {0,0};
     }
 
-    //Changing the RGB values to hide characters in them
     private Color newColor(int RGB, int key) {
         int newR = new Color(RGB, true).getRed() & 0b11111100;
         int newG = new Color(RGB, true).getGreen() & 0b11111100;

@@ -126,7 +126,22 @@ public class MyPanel extends JPanel {
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
 
-                    uploadDestination.setText(((File) selectedFile).getAbsolutePath());
+                    BufferedImage image= null;
+                    try {
+                        image = ImageIO.read(selectedFile);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    int widht = image.getWidth();
+                    int height=image.getHeight();
+                    if (widht<100||height<100){
+                        JOptionPane.showMessageDialog(null, "Error: The selected image is smaller than 100x100 pixels.",
+                                "Image Size Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else {
+                        uploadDestination.setText(((File) selectedFile).getAbsolutePath());
+
+                    }
                 }
             }
         });
@@ -145,7 +160,7 @@ public class MyPanel extends JPanel {
         createdby.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String infoMessage = "Ayberk\nEren\nİbrahim";
+                String infoMessage = "Ayberk Aydın\nEren Bceren\nİbrahim Tarhan";
                 JOptionPane.showMessageDialog(null,infoMessage,"Created by",JOptionPane.INFORMATION_MESSAGE);
 
             }
@@ -176,13 +191,19 @@ public class MyPanel extends JPanel {
         presstoEncode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (textArea.getText().length()>100){
+                    String message = "Maximum character limit exceeded (100 characters).";
+                    JOptionPane.showMessageDialog(null, message, "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+                else {
                 String imagePath =uploadDestination.getText();
                 String texttoEncode = textArea.getText();
+                texttoEncode=texttoEncode.toLowerCase();
                 if (!imagePath.isEmpty()&&!texttoEncode.isEmpty()){
                     image=loadImage(imagePath);
                     Encode encoder = new Encode();
                     encoder.hideText(image,texttoEncode);
-                }
+                }}
 
             }
         });
@@ -241,7 +262,7 @@ public class MyPanel extends JPanel {
 
 
     public static void main (String[] args) {
-        JFrame frame = new JFrame ("MyPanel");
+        JFrame frame = new JFrame ("Encryption");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add (new MyPanel());
         frame.pack();

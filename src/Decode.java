@@ -50,10 +50,7 @@ public class Decode {
     }
 
     private boolean Detection(BufferedImage img, int posX, int posY) {
-        //int color = img.getRGB(posX,posY);
-        //int red = color & 0xff0000 >> 16;
-        //int green = color & 0xff00 >> 8;
-        //int blue = color & 0xff;
+
 
         int red = new Color(img.getRGB(posX, posY), true).getRed();
         int green = new Color(img.getRGB(posX, posY), true).getGreen();
@@ -71,9 +68,7 @@ public class Decode {
     private int binaryToCharacter(int RGB) {
         int value = 0;
 
-        //int red = RGB & 0xff0000 >> 16;
-        //int green = RGB & 0xff00 >> 8;
-        //int blue = RGB & 0xff;
+
 
         int red = new Color(RGB, true).getRed();
         int green = new Color(RGB, true).getGreen();

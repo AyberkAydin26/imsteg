@@ -31,7 +31,7 @@ public class MyPanel extends JPanel {
         decodeButton = new JButton ("DECODE");
         uploadImage = new JButton ("Upload Image");
         uploadDestination = new JTextField (5);
-        downloadImage = new JButton ("Download Image");
+        downloadImage = new JButton ("Save Image");
         downloadDestination = new JTextField (5);
         txto = new JLabel ("Choose Encode or Decode");
         textArea = new JTextField (5);
@@ -47,6 +47,8 @@ public class MyPanel extends JPanel {
         JMenu helpMenu = new JMenu("Help");
         JMenuItem how=new JMenuItem("How to Use");
         helpMenu.add(how);
+        JMenuItem usableCharacters=new JMenuItem("Check Usable Characters");
+        helpMenu.add(usableCharacters);
         JMenuItem createdby=new JMenuItem("Created by");
         helpMenu.add(createdby);
         help=new JMenuBar();
@@ -160,7 +162,7 @@ public class MyPanel extends JPanel {
         createdby.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String infoMessage = "Ayberk Aydın\nEren Bceren\nİbrahim Tarhan";
+                String infoMessage = "Ayberk Aydın\nEren Beceren\nİbrahim Tarhan";
                 JOptionPane.showMessageDialog(null,infoMessage,"Created by",JOptionPane.INFORMATION_MESSAGE);
 
             }
@@ -170,6 +172,14 @@ public class MyPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String infoMessage = "To embed a hidden message into an image, click on the button labeled ENCODE, upload an image into the application, type the message you want to hide, and then press the 'Press to Encode' button.\n To decode a hidden message from an image, click on the button labeled DECODE, upload the image containing the hidden message into the application, and then press the 'Press to Decode' button. ";
                 JOptionPane.showMessageDialog(null,infoMessage,"How to Use",JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        });
+        usableCharacters.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String infoMessage="You can use all the letters from english alphabet (a-z), all the numbers (0-9) and some symbols (?!*., etc.).\n (Program only hides lowercase letters so if you input any uppercase letter they will be turned to lowercase.)";
+                JOptionPane.showMessageDialog(null,infoMessage,"Checking Usable Characters",JOptionPane.INFORMATION_MESSAGE);
 
             }
         });
@@ -262,7 +272,7 @@ public class MyPanel extends JPanel {
 
 
     public static void main (String[] args) {
-        JFrame frame = new JFrame ("Encryption");
+        JFrame frame = new JFrame ("Image Steganography");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add (new MyPanel());
         frame.pack();
